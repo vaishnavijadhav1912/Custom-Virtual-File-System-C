@@ -1,6 +1,6 @@
 # Customized Virtual File System (CVFS)
 
-A lightweight virtual file system implemented in C. This project simulates basic file system functionality such as creating, reading, writing, and deleting files within a command-line interface, without interacting with the actual OS file system.
+A virtual file system implemented in C. This project simulates basic file system functionality such as creating, reading, writing, and deleting files within a command-line interface, without interacting with the actual OS file system.
 
 ---
 
