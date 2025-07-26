@@ -1,65 +1,44 @@
-Customized Virtual File System (CVFS)
+# Customized Virtual File System (CVFS)
 
+A lightweight virtual file system implemented in C. This project simulates basic file system functionality such as creating, reading, writing, and deleting files within a command-line interface, without interacting with the actual OS file system.
 
-Project Overview
-This project implements a Unix-inspired custom virtual file system in C. It supports core file operations such as create, open, read, write, close, ls, stat, and fstat, along with permission handling and error checking — all from a command-line shell.
+---
 
-The system uses an inode structure, file descriptor tables, and memory buffers to simulate how an operating system handles files internally.
+## 📌 Project Description
 
+This project implements a simplified virtual file system in C, supporting essential file operations such as `create`, `open`, `read`, `write`, `close`, `ls`, `stat`, and `fstat`. It uses a custom inode structure, file descriptor table, and memory buffers to simulate the behavior of a real-world file system within a user-defined shell environment. The system includes permission handling, memory management, and error detection for a realistic CLI-based file management experience.
 
+---
 
-👩‍💻 Author
-Vaishnavi Jadhav
-MS in Embedded Systems, University of Colorado Boulder
+## 🔧 Features
 
+- 📂 Create and manage files using a command-line interface
+- 🛡️ Support for file permissions: Read (1), Write (2), Read & Write (3)
+- 📋 Simulated inodes and UFDT (User File Descriptor Table)
+- 📑 Metadata retrieval via `stat` and `fstat`
+- 🚫 File truncation and removal
+- 📄 List all files using `ls`
+- 🧠 Internal file buffer management (max 2048 bytes per file)
+- 📌 Supports up to 50 files (MAXINODE = 50)
 
-⚙️ Features
-Create and delete files
+---
 
-Open files with various modes (Read / Write / Read+Write)
+## 🧪 Sample Commands
 
-Write data to virtual files
+Here are the available commands you can test in the shell prompt:
 
-Read data from virtual files
-
-List all created files (ls)
-
-View file metadata (stat, fstat)
-
-Close individual files or all open files
-
-Permission-based access (Read / Write / Both)
-
-Error handling and memory leak prevention
-
-
-
-📂 Internal Architecture
-SUPERBLOCK: Tracks total and free inodes.
-
-INODE Table: Stores file metadata, permissions, and file content buffer.
-
-UFDT (User File Descriptor Table): Maps open file descriptors to inodes.
-
-FILETABLE: Maintains read/write offsets, mode, and reference count.
-
-
-
-Sample Commands (Inside the Shell)
-> create file1.txt 3           # Creates file with read+write permission
-> open file1.txt 2             # Opens file in write-only mode
-> write 0 HelloWorld           # Writes to fd 0
-> read file1.txt 50            # Reads 50 bytes from file
-> ls                           # Lists all files
-> stat file1.txt               # Displays metadata of the file
-> fstat 0                      # Displays metadata using file descriptor
-> close file1.txt              # Closes file by name
-> closeall                     # Closes all open files
-> rm file1.txt                 # Removes the file
-> exit                         # Exits the shell
-
-🛠️ Compilation
-gcc vfs.c -o vfs
-./vfs
-
-
+```bash
+> create demo.txt 3          # Create file with Read & Write permission
+> open demo.txt 2            # Open file in Write mode
+> write demo.txt             # Then enter your content
+> read demo.txt 20           # Read 20 bytes from file
+> lseek demo.txt 10 0        # Move read/write offset (START=0, CURRENT=1, END=2)
+> truncate demo.txt          # Clear contents of the file
+> close demo.txt             # Close file
+> rm demo.txt                # Delete file
+> ls                         # List all files
+> stat demo.txt              # Show file info by name
+> fstat 0                    # Show file info by file descriptor
+> closeall                   # Close all open files
+> help                       # Show all command usage
+> exit                       # Exit CVFS
