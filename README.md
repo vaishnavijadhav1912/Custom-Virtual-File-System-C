@@ -6,7 +6,26 @@ A lightweight virtual file system implemented in C. This project simulates basic
 
 ## 📌 Project Description
 
-This project implements a simplified virtual file system in C, supporting essential file operations such as `create`, `open`, `read`, `write`, `close`, `ls`, `stat`, and `fstat`. It uses a custom inode structure, file descriptor table, and memory buffers to simulate the behavior of a real-world file system within a user-defined shell environment. The system includes permission handling, memory management, and error detection for a realistic CLI-based file management experience.
+This project implements a simplified virtual file system (VFS) in C, designed to replicate core functionalities of real operating system file systems. It supports basic commands like `create`, `open`, `read`, `write`, `close`, `ls`, `stat`, and `fstat`.
+
+### 🧠 Core Data Structures:
+- **Superblock**: Tracks total and free inodes in the system.
+- **Inode Structure**: Stores file metadata including name, size, permissions, link/reference count, and a pointer to the file’s data buffer.
+- **File Table**: Maintains runtime information of each opened file including read/write offsets and access modes.
+- **UFDT (User File Descriptor Table)**: Array that holds references to open file tables, simulating file descriptors.
+- **Linked List of Inodes**: Used to manage and traverse the list of available or active inodes.
+
+### 💡 C Programming Concepts Used:
+- **Structures (`struct`)**: For defining Superblock, Inode, File Table, and UFDT entries.
+- **Pointers and Pointer to Structures**: For dynamic data access and linking.
+- **Dynamic Memory Allocation**: Using `malloc()` and `free()` for file buffers and file tables.
+- **String Handling**: Functions like `strcpy`, `strcmp`, and `strlen` are used for managing file names and data.
+- **Function Modularization**: Each command (create, open, read, etc.) is implemented as a separate function.
+- **Command Parsing**: Using `sscanf()` and tokenized input to interpret user commands in a shell-like interface.
+- **File Permissions and Modes**: Implemented via integer flags (1 = Read, 2 = Write, 3 = Read & Write).
+- **Basic Error Handling**: Return codes and condition checks for invalid operations (like reading unopened files or writing without permission).
+
+This virtual file system mimics an OS shell environment, making it ideal for learning low-level file handling, memory management, and command-driven design in C.
 
 ---
 
